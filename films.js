@@ -16,15 +16,14 @@ async function getSevenFilms (url) {
     return sevenFilms;
 }
 
+// GET 7 best films AND BEST film
 // API url for listing titles by decreasing imdb score and decreasing number of votes
 const bestFilmsUrl = 'http://localhost:8000/api/v1/titles?sort_by=-votes&sort_by=-imdb_score';
 const sevenBestFilms = await getSevenFilms(bestFilmsUrl);
-console.log(sevenBestFilms)
 
 // Transform best films list to JSON and save to local storage
 const sevenBestFilmsJson = JSON.stringify(sevenBestFilms);
 window.localStorage.setItem("sevenBestFilms", sevenBestFilmsJson);
-
 
 // Select best film
 const bestFilm = sevenBestFilms[0];
@@ -34,6 +33,22 @@ console.log(bestFilm);
 const bestFilmJson = JSON.stringify(bestFilm);
 window.localStorage.setItem("bestFilm", bestFilmJson);
 
+// GET 7 best films in 3 categories
+const comedyFilmsUrl = 'http://localhost:8000/api/v1/titles?genre=comedy';
+const sevenComedyFilms = await getSevenFilms(comedyFilmsUrl);
+const actionFilmsUrl = 'http://localhost:8000/api/v1/titles?genre=action';
+const sevenActionFilms = await getSevenFilms(actionFilmsUrl);
+const animationFilmsUrl = 'http://localhost:8000/api/v1/titles?genre=animation';
+const sevenAnimationFilms = await getSevenFilms(animationFilmsUrl);
 
+// Transform best films list to JSON and save to local storage
+const sevenComedyFilmsJson = JSON.stringify(sevenComedyFilms);
+window.localStorage.setItem("sevenComedyFilms", sevenComedyFilmsJson);
+const sevenActionFilmsJson = JSON.stringify(sevenActionFilms);
+window.localStorage.setItem("sevenActionFilms", sevenActionFilmsJson);
+const sevenAnimationFilmsJson = JSON.stringify(sevenAnimationFilms);
+window.localStorage.setItem("sevenAnimationFilms", sevenAnimationFilmsJson);
 
-
+console.log(sevenActionFilms);
+console.log(sevenComedyFilms);
+console.log(sevenAnimationFilms);
