@@ -52,3 +52,67 @@ window.localStorage.setItem("sevenAnimationFilms", sevenAnimationFilmsJson);
 console.log(sevenActionFilms);
 console.log(sevenComedyFilms);
 console.log(sevenAnimationFilms);
+
+const allFilms = [sevenBestFilms, sevenActionFilms, sevenComedyFilms, sevenAnimationFilms];
+
+function generateFilms(filmsLists) {
+    // show 7 best films
+    const bestFilms = filmsLists[0];
+    const comedyFilms = filmsLists[1];
+    const actionFilms = filmsLists[2];
+    const animationFilms = filmsLists[3];
+
+    function generateCategoryFilms(filmsList, sectionName){
+        for (let i = 0; i < filmsList.length; i++) {
+            const film = filmsList[i];
+            
+            // Get DOM element hosting films
+            const sectionFilms = document.querySelector(sectionName);
+            
+            // Creation of a tag per film
+            const filmElement = document.createElement("article");
+            
+            // Creation of film tags
+            const imageElement = document.createElement("img"); 
+            imageElement.src = film.image_url;
+            imageElement.alt = `Image du film ${film.title}`;
+            
+            // Create event on click -> modal
+            let imageSource;
+            imageElement.addEventListener("click", (e) => {
+                imageSource = e.target.src;
+                imgModal(imageSource);
+            });
+
+            // Create modal 
+            let imgModal = (src) => {
+                const modal = document.createElement("div");
+                modal.setAttribute("class", "modal");
+                //add the modal to the main section or the parent element
+                document.querySelector("main").append(modal);
+                //adding image to modal
+                const newImage = document.createElement("img");
+                newImage.setAttribute("src", src);
+                //creating the close button
+                const closeBtn = document.createElement("i");
+                closeBtn.setAttribute("class", "fas fa-times closeBtn");
+                //close function
+                closeBtn.onclick = () => {
+                    modal.remove();
+                };
+                modal.append(newImage, closeBtn);
+            };
+
+            // Joining all tags to parent elements
+            sectionFilms.appendChild(filmElement);
+            filmElement.appendChild(imageElement); 
+        }
+    }
+    generateCategoryFilms(bestFilms, ".bestFilms");
+    generateCategoryFilms(comedyFilms, ".comedyFilms");
+    generateCategoryFilms(actionFilms, ".actionFilms");
+    generateCategoryFilms(animationFilms, ".animationFilms");
+}
+
+generateFilms(allFilms);
+
