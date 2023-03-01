@@ -88,6 +88,7 @@ function generateFilms(filmsLists) {
 
 
             // add data to 1st column
+            // general function for adding data
             function addData(elementType, apiElement, innerText ){
                 const apiElementDict = {
                     title: film.title,
@@ -96,20 +97,41 @@ function generateFilms(filmsLists) {
                     rated: film.rated,
                     imdb_score: film.imdb_score,
                     directors: film.directors,
-
+                    actors: film.actors,
+                    duration: film.duration,
+                    countries: film.countries,
+                    worldwide_gross_income: film.worldwide_gross_income,
+                    description: film.description
                 };
-                console.log(apiElementDict[apiElement]);
-                const dataElement = document.createElement(elementType);
-                dataElement.innerText = `${innerText} ${apiElementDict[apiElement]}`;
-                firstColumn.appendChild(dataElement);
+                const apiElementContent = apiElementDict[apiElement];
+                console.log(film.id);
+                console.log(apiElement);
+                console.log(typeof apiElementContent);
+                console.log(apiElementContent);
+                if (apiElementContent != null) {
+                    const dataElement = document.createElement(elementType);
+                    if (Array.isArray(apiElementContent)) {
+                        const apiElementString = apiElementContent.join(", ");
+                        dataElement.innerText = `${innerText} ${apiElementString}`;
+                    } else {
+                        dataElement.innerText = `${innerText} ${apiElementContent}`;
+                    }
+                    firstColumn.appendChild(dataElement);
+                }
+                
             }
+
             addData("h1", "title", "" );
             addData("p", "genres", "Genres : " );
             addData("p", "date_published", "Date de sortie : " );
             addData("p", "rated", "Rated : " );
             addData("p", "imdb_score", "Score Imdb : " );
             addData("p", "directors", "Réalisateur : " );
-
+            addData("p", "actors", "Acteurs : " );
+            addData("p", "duration", "Durée : " );
+            addData("p", "countries", "Pays : " );
+            addData("p", "worldwide_gross_income", "Résultat Box Office : " );
+            addData("p", "description", "Synoptique : " );
             
             // create image div (2nd column)
             const secondColumn = document.createElement("div");
