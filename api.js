@@ -14,3 +14,11 @@ export async function getSevenFilms (url) {
     }
     return sevenFilms;
 }
+
+export async function getFilmData (filmId) {
+    const apiUrl = "http://localhost:8000/api/v1/titles/";
+    const filmUrl = apiUrl + filmId; 
+    let response = await fetch(filmUrl);
+    let film = await response.json();
+    return film;
+}

@@ -1,4 +1,4 @@
-import { getSevenFilms } from "./api.js";
+import { getFilmData, getSevenFilms } from "./api.js";
 
 // GET 7 best films AND BEST film
 // API url for listing titles by decreasing imdb score and decreasing number of votes
@@ -59,23 +59,53 @@ function generateFilms(filmsLists) {
         const imageElement = document.createElement("img"); 
         imageElement.src = film.image_url;
         imageElement.alt = `Image du film ${film.title}`;
+        imageElement.id = film.id;
+
         
         // Create event on click -> modal
-        let imageSource;
+        let imageId;
         imageElement.addEventListener("click", (e) => {
-            imageSource = e.target.src;
-            imgModal(imageSource);
+            imageId = e.target.id;
+            imgModal(imageId);
         });
 
         // Create modal 
-        let imgModal = (src) => {
+        let imgModal = async (id) => {
             const modal = document.createElement("div");
             modal.setAttribute("class", "modal");
             //add the modal to the main section or the parent element
             document.querySelector("main").append(modal);
-            //adding image to modal
+            // get film data
+            const film = await getFilmData(id);
+            // create content div
+            const content = document.createElement("div");
+            content.className = ".content";
+
+            // create data div (1st column)
+            const firstColumn = document.createElement("div");
+            firstColumn.className = ".firstColumn";
+            content.appendChild(firstColumn);
+
+            // adding data to 1st column
+            // Title
+            const title = document.createElement("p");
+            title.innerText = `Titre : ${film.title}`;
+            firstColumn.appendChild(title);
+            // 
+            // const  = document.createElement("p");
+            // title = film.title;
+            // firstColumn.appendChild(title);
+            
+            // create image div (2nd column)
+            const secondColumn = document.createElement("div");
+            secondColumn.className = ".secondColumn";
+            content.appendChild(secondColumn);
+
+            // adding image to second column
             const newImage = document.createElement("img");
-            newImage.setAttribute("src", src);
+            newImage.setAttribute("src", film.image_url);
+            secondColumn.appendChild(newImage);
+
             //creating the close button
             const closeBtn = document.createElement("i");
             closeBtn.setAttribute("class", "closeBtn");
@@ -84,7 +114,7 @@ function generateFilms(filmsLists) {
             closeBtn.onclick = () => {
                 modal.remove();
             };
-            modal.append(newImage, closeBtn);
+            modal.append(content, closeBtn);
         };
 
         // Joining all tags to parent elements
