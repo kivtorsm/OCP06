@@ -88,8 +88,8 @@ function generateFilms(filmsLists) {
 
             // adding data to 1st column
             // Title
-            const title = document.createElement("p");
-            title.innerText = `Titre : ${film.title}`;
+            const title = document.createElement("h1");
+            title.innerText = `${film.title}`;
             firstColumn.appendChild(title);
             // Genres
             const genres = document.createElement("p");
@@ -103,6 +103,10 @@ function generateFilms(filmsLists) {
             const rated = document.createElement("p");
             rated.innerText = `Rated : ${film.rated}`; 
             firstColumn.appendChild(rated);
+            // Imdb score
+            const imdb = document.createElement("p");
+            imdb.innerText = `Score Imdb : ${film.imdb_score}`; 
+            firstColumn.appendChild(imdb);
             
             // create image div (2nd column)
             const secondColumn = document.createElement("div");
