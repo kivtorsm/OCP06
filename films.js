@@ -1,20 +1,4 @@
-
-async function getSevenFilms (url) {
-    let response = await fetch(url);
-    let films = await response.json();
-    let sevenFilms = films.results;
-
-    while (sevenFilms.length < 7){
-        response = await fetch(films.next);
-        films = await response.json();
-        let initialLength = sevenFilms.length;
-        let nextBestFilms = films.results;
-        for (let i = 0; i < 7 - initialLength; i++) {
-            sevenFilms.push(nextBestFilms[i]);
-        }
-    }
-    return sevenFilms;
-}
+import { getSevenFilms } from "./api.js";
 
 // GET 7 best films AND BEST film
 // API url for listing titles by decreasing imdb score and decreasing number of votes
@@ -62,52 +46,60 @@ function generateFilms(filmsLists) {
     const actionFilms = filmsLists[2];
     const animationFilms = filmsLists[3];
 
+    function generateFilm(film, sectionName) {
+            
+        // Get DOM element hosting films
+        const sectionFilms = document.querySelector(sectionName);
+        
+        // Creation of a tag per film
+        const filmElement = document.createElement("article");
+        filmElement.className = "film";
+        
+        // Creation of film tags
+        const imageElement = document.createElement("img"); 
+        imageElement.src = film.image_url;
+        imageElement.alt = `Image du film ${film.title}`;
+        
+        // Create event on click -> modal
+        let imageSource;
+        imageElement.addEventListener("click", (e) => {
+            imageSource = e.target.src;
+            imgModal(imageSource);
+        });
+
+        // Create modal 
+        let imgModal = (src) => {
+            const modal = document.createElement("div");
+            modal.setAttribute("class", "modal");
+            //add the modal to the main section or the parent element
+            document.querySelector("main").append(modal);
+            //adding image to modal
+            const newImage = document.createElement("img");
+            newImage.setAttribute("src", src);
+            //creating the close button
+            const closeBtn = document.createElement("i");
+            closeBtn.setAttribute("class", "closeBtn");
+            closeBtn.innerText = "\u00D7";
+            //close function
+            closeBtn.onclick = () => {
+                modal.remove();
+            };
+            modal.append(newImage, closeBtn);
+        };
+
+        // Joining all tags to parent elements
+        sectionFilms.appendChild(filmElement);
+        filmElement.appendChild(imageElement);
+
+    }
     function generateCategoryFilms(filmsList, sectionName){
+        
         for (let i = 0; i < filmsList.length; i++) {
             const film = filmsList[i];
-            
-            // Get DOM element hosting films
-            const sectionFilms = document.querySelector(sectionName);
-            
-            // Creation of a tag per film
-            const filmElement = document.createElement("article");
-            
-            // Creation of film tags
-            const imageElement = document.createElement("img"); 
-            imageElement.src = film.image_url;
-            imageElement.alt = `Image du film ${film.title}`;
-            
-            // Create event on click -> modal
-            let imageSource;
-            imageElement.addEventListener("click", (e) => {
-                imageSource = e.target.src;
-                imgModal(imageSource);
-            });
-
-            // Create modal 
-            let imgModal = (src) => {
-                const modal = document.createElement("div");
-                modal.setAttribute("class", "modal");
-                //add the modal to the main section or the parent element
-                document.querySelector("main").append(modal);
-                //adding image to modal
-                const newImage = document.createElement("img");
-                newImage.setAttribute("src", src);
-                //creating the close button
-                const closeBtn = document.createElement("i");
-                closeBtn.setAttribute("class", "fas fa-times closeBtn");
-                //close function
-                closeBtn.onclick = () => {
-                    modal.remove();
-                };
-                modal.append(newImage, closeBtn);
-            };
-
-            // Joining all tags to parent elements
-            sectionFilms.appendChild(filmElement);
-            filmElement.appendChild(imageElement); 
+            generateFilm(film, sectionName);
         }
     }
+    generateFilm(bestFilms[0], ".bestFilm");
     generateCategoryFilms(bestFilms, ".bestFilms");
     generateCategoryFilms(comedyFilms, ".comedyFilms");
     generateCategoryFilms(actionFilms, ".actionFilms");
