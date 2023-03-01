@@ -99,6 +99,10 @@ function generateFilms(filmsLists) {
             const publishingDate = document.createElement("p");
             publishingDate.innerText = `Date de sortie : ${film.date_published}`;
             firstColumn.appendChild(publishingDate);
+            // Rated
+            const rated = document.createElement("p");
+            rated.innerText = `Rated : ${film.rated}`; 
+            firstColumn.appendChild(rated);
             
             // create image div (2nd column)
             const secondColumn = document.createElement("div");
