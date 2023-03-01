@@ -91,10 +91,11 @@ function generateFilms(filmsLists) {
             const title = document.createElement("p");
             title.innerText = `Titre : ${film.title}`;
             firstColumn.appendChild(title);
-            // 
-            // const  = document.createElement("p");
-            // title = film.title;
-            // firstColumn.appendChild(title);
+            // Genres
+            const genres = document.createElement("p");
+            genres.innerText = `Genres : ${film.genres}`;
+            firstColumn.appendChild(genres);
+            
             
             // create image div (2nd column)
             const secondColumn = document.createElement("div");
