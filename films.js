@@ -86,27 +86,30 @@ function generateFilms(filmsLists) {
             firstColumn.className = ".firstColumn";
             content.appendChild(firstColumn);
 
-            // adding data to 1st column
-            // Title
-            const title = document.createElement("h1");
-            title.innerText = `${film.title}`;
-            firstColumn.appendChild(title);
-            // Genres
-            const genres = document.createElement("p");
-            genres.innerText = `Genres : ${film.genres}`;
-            firstColumn.appendChild(genres);
-            // publishing date
-            const publishingDate = document.createElement("p");
-            publishingDate.innerText = `Date de sortie : ${film.date_published}`;
-            firstColumn.appendChild(publishingDate);
-            // Rated
-            const rated = document.createElement("p");
-            rated.innerText = `Rated : ${film.rated}`; 
-            firstColumn.appendChild(rated);
-            // Imdb score
-            const imdb = document.createElement("p");
-            imdb.innerText = `Score Imdb : ${film.imdb_score}`; 
-            firstColumn.appendChild(imdb);
+
+            // add data to 1st column
+            function addData(elementType, apiElement, innerText ){
+                const apiElementDict = {
+                    title: film.title,
+                    genres: film.genres,
+                    date_published: film.date_published,
+                    rated: film.rated,
+                    imdb_score: film.imdb_score,
+                    directors: film.directors,
+
+                };
+                console.log(apiElementDict[apiElement]);
+                const dataElement = document.createElement(elementType);
+                dataElement.innerText = `${innerText} ${apiElementDict[apiElement]}`;
+                firstColumn.appendChild(dataElement);
+            }
+            addData("h1", "title", "" );
+            addData("p", "genres", "Genres : " );
+            addData("p", "date_published", "Date de sortie : " );
+            addData("p", "rated", "Rated : " );
+            addData("p", "imdb_score", "Score Imdb : " );
+            addData("p", "directors", "Réalisateur : " );
+
             
             // create image div (2nd column)
             const secondColumn = document.createElement("div");
