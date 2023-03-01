@@ -95,7 +95,10 @@ function generateFilms(filmsLists) {
             const genres = document.createElement("p");
             genres.innerText = `Genres : ${film.genres}`;
             firstColumn.appendChild(genres);
-            
+            // publishing date
+            const publishingDate = document.createElement("p");
+            publishingDate.innerText = `Date de sortie : ${film.date_published}`;
+            firstColumn.appendChild(publishingDate);
             
             // create image div (2nd column)
             const secondColumn = document.createElement("div");
