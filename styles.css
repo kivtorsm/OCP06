@@ -1,18 +1,14 @@
 * {
-    padding: 0;
-    margin: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 main {
-    font-family: Arial, Helvetica, sans-serif;
     width: 90%;
     flex-direction: column;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px 0px 60px 0px;
     align-content: center;
     margin: 0 auto;
 }
@@ -21,24 +17,30 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center; 
-    height : 10%;
-    position: relative;
 }
 
 .logo { 
-    height: 50px;
+    height: 4rem;
 }
 
 h1 {
-    margin: 10px 0px 30px 0px;
-    color: rgb(0, 6, 90);
+    margin: 30px 0px 30px 0px;
     font-size: 50px;
 }
 
 nav {
     display: flex;
+    flex-direction: row;
     font-size: 25px;
-    justify-content: space-between;
+    margin: 30px 0px;
+}
+
+nav div {
+    margin: 15px;
+}
+
+section {
+    margin: 20px;
 }
 
 .carousel {
@@ -48,6 +50,7 @@ nav {
 
 .bestFilmsDiv, .actionFilmsDiv, .comedyFilmsDiv, .animationFilmsDiv {
     display: flex;
+    gap: 10px;
     align-items: center;
     list-style: none;
     margin: 0;
@@ -60,10 +63,7 @@ nav {
 
 .film {
     cursor: pointer;
-    overflow: hidden;
-    border-radius: 4px;
     flex: 3 0 23%;
-    margin: 10px;
 }
 
 .film img {
@@ -71,6 +71,7 @@ nav {
     transition: 0.3s ease-in-out;
     height: auto;
     width: 100%;
+    border-radius: 4px;
 }
 
 .film img:hover {
@@ -79,6 +80,8 @@ nav {
 
 .category {
     margin-left: 3%;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 @media (max-width: 950px) {
@@ -96,8 +99,6 @@ nav {
 .slide-arrow {
     position: relative;
     display: flex;
-    top: 0;
-    bottom: 0;
     margin: auto;
     height: 4rem;
     background-color: white;
@@ -115,16 +116,16 @@ nav {
     opacity: 1;
 }
   
-#slide-arrow-prev {
-    left: 0;
+.slide-arrow-prev {
     padding-left: 0.25rem;
     border-radius: 0 2rem 2rem 0;
 }
   
-#slide-arrow-next {
-    right: 0;
+.slide-arrow-next {
     padding-left: 0.75rem;
     border-radius: 2rem 0 0 2rem;
+    text-align: right;
+
 }
 
 /*Image modal*/
