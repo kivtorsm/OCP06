@@ -167,10 +167,10 @@ function generateFilms(filmsLists) {
         }
     }
     generateFilm(bestFilms[0], ".bestFilm");
-    generateCategoryFilms(bestFilms, ".bestFilms");
-    generateCategoryFilms(comedyFilms, ".comedyFilms");
-    generateCategoryFilms(actionFilms, ".actionFilms");
-    generateCategoryFilms(animationFilms, ".animationFilms");
+    generateCategoryFilms(bestFilms, ".bestFilmsDiv");
+    generateCategoryFilms(comedyFilms, ".comedyFilmsDiv");
+    generateCategoryFilms(actionFilms, ".actionFilmsDiv");
+    generateCategoryFilms(animationFilms, ".animationFilmsDiv");
 }
 
 generateFilms(allFilms);
