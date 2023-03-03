@@ -233,7 +233,15 @@ function generateFilms(filmsLists) {
         const playButton = document.createElement("button");
         playButton.innerText = "\u23F5 Regarder";
         playButton.className = "playButton";
+        playButton.id = film.id;
         firstColumn.appendChild(playButton);
+
+        // Create event on click -> modal
+        let filmId;
+        playButton.addEventListener("click", (e) => {
+            filmId = e.target.id;
+            createModal(filmId);
+        });
         
         // Create 2nd column content
         const image = document.createElement("img");
