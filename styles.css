@@ -53,12 +53,11 @@ section {
     gap: 10px;
     align-items: center;
     list-style: none;
-    margin: 0;
-    padding: 0;
     overflow: scroll;
     scroll-behavior: smooth;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    order: 2;
 }
 
 .film {
@@ -76,6 +75,7 @@ section {
 
 .film img:hover {
     transform: scale(1.1);
+    /* margin: 20px 20px 20px 20px; */
 }
 
 .category {
@@ -117,14 +117,14 @@ section {
 }
   
 .slide-arrow-prev {
-    padding-left: 0.25rem;
     border-radius: 0 2rem 2rem 0;
+    order: 1;
 }
   
 .slide-arrow-next {
-    padding-left: 0.75rem;
     border-radius: 2rem 0 0 2rem;
-    text-align: right;
+    justify-content: end;
+    order: 3;
 
 }
 

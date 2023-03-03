@@ -11,7 +11,6 @@ window.localStorage.setItem("sevenBestFilms", sevenBestFilmsJson);
 
 // Select best film
 const bestFilm = sevenBestFilms[0];
-console.log(bestFilm);
 
 // Transform best film to JSON and save to local storage
 const bestFilmJson = JSON.stringify(bestFilm);
@@ -33,10 +32,6 @@ window.localStorage.setItem("sevenActionFilms", sevenActionFilmsJson);
 const sevenAnimationFilmsJson = JSON.stringify(sevenAnimationFilms);
 window.localStorage.setItem("sevenAnimationFilms", sevenAnimationFilmsJson);
 
-console.log(sevenActionFilms);
-console.log(sevenComedyFilms);
-console.log(sevenAnimationFilms);
-
 const allFilms = [sevenBestFilms, sevenActionFilms, sevenComedyFilms, sevenAnimationFilms];
 
 function generateFilms(filmsLists) {
@@ -49,7 +44,8 @@ function generateFilms(filmsLists) {
     function generateFilm(film, sectionName) {
             
         // Get DOM element hosting films
-        const sectionFilms = document.querySelector(sectionName);
+        const carouselName = "." + sectionName + "Div";
+        const slideContainer = document.querySelector(carouselName);
         
         // Creation of a tag per film
         const filmElement = document.createElement("article");
@@ -61,7 +57,11 @@ function generateFilms(filmsLists) {
         imageElement.alt = `Image du film ${film.title}`;
         imageElement.id = film.id;
 
-        
+                
+        // Joining all tags to parent elements
+        slideContainer.appendChild(filmElement);
+        filmElement.appendChild(imageElement);
+
         // Create event on click -> modal
         let imageId;
         imageElement.addEventListener("click", (e) => {
@@ -104,10 +104,6 @@ function generateFilms(filmsLists) {
                     description: film.description
                 };
                 const apiElementContent = apiElementDict[apiElement];
-                console.log(film.id);
-                console.log(apiElement);
-                console.log(typeof apiElementContent);
-                console.log(apiElementContent);
                 if (apiElementContent != null) {
                     const dataElement = document.createElement(elementType);
                     if (Array.isArray(apiElementContent)) {
@@ -153,39 +149,65 @@ function generateFilms(filmsLists) {
             };
             modal.append(content, closeBtn);
         };
+    };
 
-        // Joining all tags to parent elements
-        sectionFilms.appendChild(filmElement);
-        filmElement.appendChild(imageElement);
+    function generateCategoryFilms(filmsList, sectionName, categoryInnerText){
 
-    }
-    function generateCategoryFilms(filmsList, sectionName){
-        
+        // Get DOM object
+        const categorySection = document.querySelector(`.${sectionName}`);
+
+        // create p category title
+        const categoryTitleElement = document.createElement("p");
+        categoryTitleElement.className = "category";
+        categoryTitleElement.innerText = categoryInnerText;
+        categorySection.appendChild(categoryTitleElement);
+
+        // create carousel div
+        const carousel = document.createElement("div");
+        carousel.className = "carousel";
+        categorySection.appendChild(carousel);
+
+        // create slider container
+        const slideContainer = document.createElement("div");
+        slideContainer.className = `${sectionName}Div slides-container`;
+        carousel.appendChild(slideContainer);
+
         for (let i = 0; i < filmsList.length; i++) {
             const film = filmsList[i];
             generateFilm(film, sectionName);
         }
+        // Get film object
+        const film = document.querySelector(".film");
+
+        // create left button
+        const leftButton = document.createElement("button");
+        leftButton.className = "slide-arrow slide-arrow-prev";
+        leftButton.innerText = "\u2039"; 
+        carousel.appendChild(leftButton);
+
+        // Add left button action
+        leftButton.addEventListener("click", () => {
+            const slideWidth = film.clientWidth;
+            slideContainer.scrollLeft -= slideWidth;
+        });
+
+        // create right button
+        const rightButton = document.createElement("button");
+        rightButton.className = "slide-arrow slide-arrow-next";
+        rightButton.innerText = "\u203A"; 
+        carousel.appendChild(rightButton);
+
+        // Add right button action
+        rightButton.addEventListener("click", () => {
+            const slideWidth = film.clientWidth;
+            slideContainer.scrollLeft += slideWidth;
+        });
     }
-    generateFilm(bestFilms[0], ".bestFilm");
-    generateCategoryFilms(bestFilms, ".bestFilmsDiv");
-    generateCategoryFilms(comedyFilms, ".comedyFilmsDiv");
-    generateCategoryFilms(actionFilms, ".actionFilmsDiv");
-    generateCategoryFilms(animationFilms, ".animationFilmsDiv");
+    // generateFilm(bestFilms[0], ".bestFilm");
+    generateCategoryFilms(bestFilms, "bestFilms", "Films les mieux notés");
+    generateCategoryFilms(comedyFilms, "comedyFilms", "Comédie");
+    generateCategoryFilms(actionFilms, "actionFilms", "Action");
+    generateCategoryFilms(animationFilms, "animationFilms", "Animation");
 }
 
 generateFilms(allFilms);
-
-const slidesContainer = document.getElementsByClassName("slides-container");
-const slide = document.querySelector(".film");
-const prevButton = document.getElementById("slide-arrow-prev");
-const nextButton = document.getElementById("slide-arrow-next");
-
-nextButton.addEventListener("click", () => {
-    const slideWidth = slide.clientWidth;
-    slidesContainer.scrollLeft += slideWidth;
-  });
-  
-  prevButton.addEventListener("click", () => {
-    const slideWidth = slide.clientWidth;
-    slidesContainer.scrollLeft -= slideWidth;
-  });
