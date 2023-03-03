@@ -239,7 +239,7 @@ function generateFilms(filmsLists) {
         const image = document.createElement("img");
         image.src = film.image_url;
         image.alt = `Image du film ${film.title}`
-        image.className = 'mainFilmImage';
+        image.className = 'bestFilmImage';
         secondColumn.appendChild(image);
     }
 
