@@ -39,17 +39,13 @@ nav div {
 
 section {
     margin: 2em 0em 0em 0em;
-}
-
-.carousel {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .bestFilm {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
     gap: 5%;
     height: 25em;
 }
@@ -89,6 +85,11 @@ h2 {
     height: 100%;
 }
 
+.carousel {
+    display: flex;
+    flex-direction: row;
+}
+
 .bestFilmsDiv, .actionFilmsDiv, .comedyFilmsDiv, .animationFilmsDiv {
     display: flex;
     gap: 1em;
@@ -99,6 +100,7 @@ h2 {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     order: 2;
+    flex-grow: 2;
 }
 
 .film {
@@ -158,13 +160,18 @@ h2 {
   
 .slide-arrow-prev {
     border-radius: 0 2rem 2rem 0;
+    margin-right: 0.25em;
     order: 1;
+    flex-grow: 1;
+    justify-content: end;
 }
   
 .slide-arrow-next {
     border-radius: 2rem 0 0 2rem;
-    justify-content: end;
+    margin-left: 0.25em;
+    justify-content: start;
     order: 3;
+    flex-grow: 1;
 }
 
 /*Image modal*/
@@ -203,8 +210,6 @@ h2 {
 .firstColumn { 
     width: 50%;
 }
-
-
 
 .modal img {
     height: 100%;
