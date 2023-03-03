@@ -1,0 +1,24 @@
+{
+  "name": "p06",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api.js",
+  "scripts": {
+    "sass": "sass --watch ./sass/main.scss:./public/css/style.css",
+    "prefix": "postcss ./styles.css --use autoprefixer -d ./public/css/prefixed/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kivtorsm/OCP06.git"
+  },
+  "keywords": [
+    "p06"
+  ],
+  "author": "VSM",
+  "license": "ISC",
+  "browserslist": "last 4 versions",
+  "bugs": {
+    "url": "https://github.com/kivtorsm/OCP06/issues"
+  },
+  "homepage": "https://github.com/kivtorsm/OCP06#readme"
+}
