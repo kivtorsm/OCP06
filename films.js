@@ -66,89 +66,90 @@ function generateFilms(filmsLists) {
         let imageId;
         imageElement.addEventListener("click", (e) => {
             imageId = e.target.id;
-            imgModal(imageId);
+            createModal(imageId);
         });
+    };
 
-        // Create modal 
-        let imgModal = async (id) => {
-            const modal = document.createElement("div");
-            modal.setAttribute("class", "modal");
-            //add the modal to the main section or the parent element
-            document.querySelector("main").append(modal);
-            // get film data
-            const film = await getFilmData(id);
-            // create content div
-            const content = document.createElement("div");
-            content.className = ".content";
+    // Create modal 
+    async function createModal(id) {
+        const modal = document.createElement("div");
+        modal.setAttribute("class", "modal");
+        //add the modal to the main section or the parent element
+        document.querySelector("main").append(modal);
+        // get film data
+        const film = await getFilmData(id);
+        // create content div
+        const content = document.createElement("div");
+        content.className = "modal-container";
 
-            // create data div (1st column)
-            const firstColumn = document.createElement("div");
-            firstColumn.className = ".firstColumn";
-            content.appendChild(firstColumn);
+        // create data div (1st column)
+        const firstColumn = document.createElement("div");
+        firstColumn.className = "firstColumn";
+        content.appendChild(firstColumn);
 
 
-            // add data to 1st column
-            // general function for adding data
-            function addData(elementType, apiElement, innerText ){
-                const apiElementDict = {
-                    title: film.title,
-                    genres: film.genres,
-                    date_published: film.date_published,
-                    rated: film.rated,
-                    imdb_score: film.imdb_score,
-                    directors: film.directors,
-                    actors: film.actors,
-                    duration: film.duration,
-                    countries: film.countries,
-                    worldwide_gross_income: film.worldwide_gross_income,
-                    description: film.description
-                };
-                const apiElementContent = apiElementDict[apiElement];
-                if (apiElementContent != null) {
-                    const dataElement = document.createElement(elementType);
-                    if (Array.isArray(apiElementContent)) {
-                        const apiElementString = apiElementContent.join(", ");
-                        dataElement.innerText = `${innerText} ${apiElementString}`;
-                    } else {
-                        dataElement.innerText = `${innerText} ${apiElementContent}`;
-                    }
-                    firstColumn.appendChild(dataElement);
-                }
-                
-            }
-
-            addData("h1", "title", "" );
-            addData("p", "genres", "Genres : " );
-            addData("p", "date_published", "Date de sortie : " );
-            addData("p", "rated", "Rated : " );
-            addData("p", "imdb_score", "Score Imdb : " );
-            addData("p", "directors", "Réalisateur : " );
-            addData("p", "actors", "Acteurs : " );
-            addData("p", "duration", "Durée : " );
-            addData("p", "countries", "Pays : " );
-            addData("p", "worldwide_gross_income", "Résultat Box Office : " );
-            addData("p", "description", "Synoptique : " );
-            
-            // create image div (2nd column)
-            const secondColumn = document.createElement("div");
-            secondColumn.className = ".secondColumn";
-            content.appendChild(secondColumn);
-
-            // adding image to second column
-            const newImage = document.createElement("img");
-            newImage.setAttribute("src", film.image_url);
-            secondColumn.appendChild(newImage);
-
-            //creating the close button
-            const closeBtn = document.createElement("i");
-            closeBtn.setAttribute("class", "closeBtn");
-            closeBtn.innerText = "\u00D7";
-            //close function
-            closeBtn.onclick = () => {
-                modal.remove();
+        // add data to 1st column
+        // general function for adding data
+        function addData(elementType, apiElement, innerText ){
+            const apiElementDict = {
+                title: film.title,
+                genres: film.genres,
+                date_published: film.date_published,
+                rated: film.rated,
+                imdb_score: film.imdb_score,
+                directors: film.directors,
+                actors: film.actors,
+                duration: film.duration,
+                countries: film.countries,
+                worldwide_gross_income: film.worldwide_gross_income,
+                description: film.description
             };
-            modal.append(content, closeBtn);
+            const apiElementContent = apiElementDict[apiElement];
+            if (apiElementContent != null) {
+                const dataElement = document.createElement(elementType);
+                dataElement.className = 'modal-content';
+                if (Array.isArray(apiElementContent)) {
+                    const apiElementString = apiElementContent.join(", ");
+                    dataElement.innerText = `${innerText} ${apiElementString}`;
+                } else {
+                    dataElement.innerText = `${innerText} ${apiElementContent}`;
+                }
+                firstColumn.appendChild(dataElement);
+            }
+            
+        }
+
+        addData("h1", "title", "" );
+        addData("p", "genres", "Genres : " );
+        addData("p", "date_published", "Date de sortie : " );
+        addData("p", "rated", "Rated : " );
+        addData("p", "imdb_score", "Score Imdb : " );
+        addData("p", "directors", "Réalisateur : " );
+        addData("p", "actors", "Acteurs : " );
+        addData("p", "duration", "Durée (min) : " );
+        addData("p", "countries", "Pays : " );
+        addData("p", "worldwide_gross_income", "Résultat Box Office : " );
+        addData("p", "description", "Synoptique : " );
+        
+        // create image div (2nd column)
+        const secondColumn = document.createElement("div");
+        secondColumn.className = "secondColumn";
+        content.appendChild(secondColumn);
+
+        // adding image to second column
+        const newImage = document.createElement("img");
+        newImage.setAttribute("src", film.image_url);
+        secondColumn.appendChild(newImage);
+
+        //creating the close button
+        const closeBtn = document.createElement("i");
+        closeBtn.setAttribute("class", "closeBtn");
+        closeBtn.innerText = "\u00D7";
+        //close function
+        closeBtn.onclick = () => {
+            modal.remove();
         };
+        modal.append(content, closeBtn);
     };
 
     function generateCategoryFilms(filmsList, sectionName, categoryInnerText){
@@ -202,8 +203,48 @@ function generateFilms(filmsLists) {
             const slideWidth = film.clientWidth;
             slideContainer.scrollLeft += slideWidth;
         });
+    };
+
+    function generateMainFilm () {
+        const slideContainer = document.querySelector(".bestFilm");
+        
+        // Create 1st column div
+        const firstColumn = document.createElement("div");
+        firstColumn.className = "bestFilmFirstColumn bestFilmcolumn";
+        slideContainer.appendChild(firstColumn);
+
+        // Create 2nd column div
+        const secondColumn = document.createElement("div");
+        secondColumn.className = "bestFilmSecondColumn bestFilmcolumn";
+        slideContainer.appendChild(secondColumn);
+
+        // Create 1st column content
+        const film = bestFilms[0];
+        const title = document.createElement("h2");
+        title.innerText = film.title;
+        firstColumn.appendChild(title);
+        
+        const description = document.createElement("p");
+        if (film.description != null) {
+            description.innerText = film.description;
+            firstColumn.appendChild(description);
+        }
+
+        const playButton = document.createElement("button");
+        playButton.innerText = "\u23F5 Regarder";
+        playButton.className = "playButton";
+        firstColumn.appendChild(playButton);
+        
+        // Create 2nd column content
+        const image = document.createElement("img");
+        image.src = film.image_url;
+        image.alt = `Image du film ${film.title}`
+        image.className = 'mainFilmImage';
+        secondColumn.appendChild(image);
     }
+
     // generateFilm(bestFilms[0], ".bestFilm");
+    generateMainFilm();
     generateCategoryFilms(bestFilms, "bestFilms", "Films les mieux notés");
     generateCategoryFilms(comedyFilms, "comedyFilms", "Comédie");
     generateCategoryFilms(actionFilms, "actionFilms", "Action");

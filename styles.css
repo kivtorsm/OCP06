@@ -47,6 +47,32 @@ section {
     display: flex;
     flex-direction: row;
 }
+.bestFilm {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 5%;
+    width: 100%;
+}
+
+.bestFilmFirstColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 5%;
+    align-items: center;
+    width: 50%;
+    margin: 5% 0%;
+}
+
+.playButton {
+    /* width: 40%; */
+    /* height: 20%; */
+    padding: 4% 10% 4% 10%;
+    background-color: lightgrey;
+    border: none;
+    border-radius: 5px;
+}
 
 .bestFilmsDiv, .actionFilmsDiv, .comedyFilmsDiv, .animationFilmsDiv {
     display: flex;
@@ -125,7 +151,6 @@ section {
     border-radius: 2rem 0 0 2rem;
     justify-content: end;
     order: 3;
-
 }
 
 /*Image modal*/
@@ -138,7 +163,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.733);
+    background-color: rgba(0, 0, 0, 0.9);
     margin-top: -1px;
     animation: zoom 0.3s ease-in-out;
 }
@@ -151,8 +176,24 @@ section {
         transform: scale(1);
     }
 }
+.modal-container {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5%;
+    width: 80%;
+    padding-right: 10%;
+}
+
+.firstColumn { 
+    width: 50%;
+}
+
+
+
 .modal img {
-    height: 80%;
+    height: 100%;
     object-fit: cover;
 }
 .closeBtn {
