@@ -115,9 +115,9 @@ function generateFilms(filmsLists) {
                     dataElement.innerText = `${innerText} ${apiElementContent}`;
                 }
                 firstColumn.appendChild(dataElement);
-            }
+            };
             
-        }
+        };
 
         addData("h1", "title", "" );
         addData("p", "genres", "Genres : " );
@@ -176,7 +176,7 @@ function generateFilms(filmsLists) {
         for (let i = 0; i < filmsList.length; i++) {
             const film = filmsList[i];
             generateFilm(film, sectionName);
-        }
+        };
         // Get film object
         const film = document.querySelector(".film");
 
@@ -228,7 +228,7 @@ function generateFilms(filmsLists) {
         if (film.description != null) {
             description.innerText = film.description;
             firstColumn.appendChild(description);
-        }
+        };
 
         const playButton = document.createElement("button");
         playButton.innerText = "\u23F5 Regarder";
@@ -246,7 +246,7 @@ function generateFilms(filmsLists) {
         // Create 2nd column content
         const image = document.createElement("img");
         image.src = film.image_url;
-        image.alt = `Image du film ${film.title}`
+        image.alt = `Image du film ${film.title}`;
         image.className = 'bestFilmImage';
         secondColumn.appendChild(image);
     }
