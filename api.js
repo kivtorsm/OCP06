@@ -10,8 +10,8 @@ export async function getSevenFilms (url) {
         let nextBestFilms = films.results;
         for (let i = 0; i < 7 - initialLength; i++) {
             sevenFilms.push(nextBestFilms[i]);
-        }
-    }
+        };
+    };
     return sevenFilms;
 }
 
